@@ -6,8 +6,6 @@
 # Una línea para empezar:
 # curl -sL https://raw.githubusercontent.com/labdepaz-ops/claude-para-coaches/main/install.sh | bash
 
-set -e
-
 REPO="https://raw.githubusercontent.com/labdepaz-ops/claude-para-coaches/main"
 
 VERDE='\033[0;32m'
@@ -15,6 +13,16 @@ DORADO='\033[0;33m'
 GRIS='\033[0;90m'
 NEGRITA='\033[1m'
 RESET='\033[0m'
+
+descargar() {
+  local url="$1"
+  local destino="$2"
+  if curl -sfL "$url" -o "$destino" 2>/dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
 
 echo ""
 echo "═══════════════════════════════════════════════════════════"
@@ -33,7 +41,6 @@ echo "════════════════════════�
 echo ""
 sleep 1
 
-# Comprobar Node (Claude Code lo trae, así que esto solo falla si Claude Code no está)
 if ! command -v node &> /dev/null; then
   echo -e "  ${NEGRITA}Espera.${RESET}"
   echo ""
@@ -56,46 +63,42 @@ mkdir -p ~/.claude/commands/paz
 mkdir -p ~/.laboratorio-de-paz/so
 mkdir -p ~/.laboratorio-de-paz/plantillas
 mkdir -p ~/.laboratorio-de-paz/regalos
-sleep 1
+
+DESCARGADOS=0
+ESPERADOS=0
 
 echo -e "  ${GRIS}Descargando los módulos del curso...${RESET}"
-curl -sf "$REPO/commands/paz/start.md" -o ~/.claude/commands/paz/start.md
-curl -sf "$REPO/commands/paz/esencia.md" -o ~/.claude/commands/paz/esencia.md
-curl -sf "$REPO/commands/paz/skill.md" -o ~/.claude/commands/paz/skill.md
-curl -sf "$REPO/commands/paz/agente.md" -o ~/.claude/commands/paz/agente.md
-curl -sf "$REPO/commands/paz/encender.md" -o ~/.claude/commands/paz/encender.md
-sleep 1
+for archivo in start.md esencia.md skill.md agente.md encender.md; do
+  ESPERADOS=$((ESPERADOS + 1))
+  if descargar "$REPO/commands/paz/$archivo" ~/.claude/commands/paz/$archivo; then
+    DESCARGADOS=$((DESCARGADOS + 1))
+  fi
+done
 
 echo -e "  ${GRIS}Descargando los archivos del SO...${RESET}"
-curl -sf "$REPO/so/servidor.js" -o ~/.laboratorio-de-paz/so/servidor.js
-curl -sf "$REPO/so/index.html" -o ~/.laboratorio-de-paz/so/index.html
-curl -sf "$REPO/so/app.js" -o ~/.laboratorio-de-paz/so/app.js
-curl -sf "$REPO/so/estilos.css" -o ~/.laboratorio-de-paz/so/estilos.css
-curl -sf "$REPO/so/package.json" -o ~/.laboratorio-de-paz/so/package.json
+for archivo in servidor.js index.html app.js estilos.css package.json; do
+  descargar "$REPO/so/$archivo" ~/.laboratorio-de-paz/so/$archivo || true
+done
 
 echo -e "  ${GRIS}Descargando las plantillas base...${RESET}"
-curl -sf "$REPO/plantillas/claude-md-base.md" -o ~/.laboratorio-de-paz/plantillas/claude-md-base.md
-curl -sf "$REPO/plantillas/skill-reel-en-mi-voz.md" -o ~/.laboratorio-de-paz/plantillas/skill-reel-en-mi-voz.md
-curl -sf "$REPO/plantillas/agente-contenido.md" -o ~/.laboratorio-de-paz/plantillas/agente-contenido.md
+for archivo in claude-md-base.md skill-reel-en-mi-voz.md agente-contenido.md; do
+  descargar "$REPO/plantillas/$archivo" ~/.laboratorio-de-paz/plantillas/$archivo || true
+done
 
 echo -e "  ${GRIS}Descargando los regalos del curso...${RESET}"
-curl -sf "$REPO/regalos/30-prompts-anti-guru.md" -o ~/.laboratorio-de-paz/regalos/30-prompts-anti-guru.md
-curl -sf "$REPO/regalos/5-workflows-de-coach.md" -o ~/.laboratorio-de-paz/regalos/5-workflows-de-coach.md
-curl -sf "$REPO/regalos/plantillas-de-negocio.md" -o ~/.laboratorio-de-paz/regalos/plantillas-de-negocio.md
+for archivo in 30-prompts-anti-guru.md 5-workflows-de-coach.md plantillas-de-negocio.md; do
+  descargar "$REPO/regalos/$archivo" ~/.laboratorio-de-paz/regalos/$archivo || true
+done
+
 sleep 1
-
-INSTALADOS=$(ls ~/.claude/commands/paz/*.md 2>/dev/null | wc -l | tr -d ' ')
-
 echo ""
 
-if [ "$INSTALADOS" -ge 5 ]; then
+if [ "$DESCARGADOS" -eq "$ESPERADOS" ]; then
   echo "═══════════════════════════════════════════════════════════"
   echo ""
   echo -e "  ${VERDE}${NEGRITA}✓ Instalado${RESET}"
   echo ""
-  echo "  5 módulos en su sitio"
-  echo "  3 plantillas listas"
-  echo "  3 regalos esperando"
+  echo "  $DESCARGADOS módulos en su sitio"
   echo ""
   echo "═══════════════════════════════════════════════════════════"
   echo ""
@@ -108,10 +111,22 @@ if [ "$INSTALADOS" -ge 5 ]; then
   echo ""
   echo -e "  ${GRIS}— A.${RESET}"
   echo ""
+elif [ "$DESCARGADOS" -gt 0 ]; then
+  echo "═══════════════════════════════════════════════════════════"
+  echo ""
+  echo -e "  ${DORADO}${NEGRITA}Instalación parcial${RESET}"
+  echo ""
+  echo "  $DESCARGADOS de $ESPERADOS módulos descargados"
+  echo ""
+  echo -e "  ${GRIS}(El curso sigue en construcción. Si esto es una prueba"
+  echo -e "   del autor, todo en orden. Si no, vuelve a intentarlo.)${RESET}"
+  echo ""
+  echo "═══════════════════════════════════════════════════════════"
+  echo ""
 else
   echo -e "  ${NEGRITA}Algo no ha cuadrado.${RESET}"
   echo ""
-  echo "  Solo se han instalado $INSTALADOS módulos de 5."
+  echo "  No se descargó ningún módulo."
   echo "  Lo más probable: tu conexión se cayó un segundo."
   echo ""
   echo "  Vuelve a pegar la línea curl. No pasa nada por intentarlo otra vez."
