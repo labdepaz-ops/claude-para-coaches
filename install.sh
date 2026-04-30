@@ -59,18 +59,23 @@ if ! command -v node &> /dev/null; then
 fi
 
 echo -e "  ${GRIS}Preparando el espacio...${RESET}"
-mkdir -p ~/.claude/commands/paz
+mkdir -p ~/.claude/commands
 mkdir -p ~/.laboratorio-de-paz/so
 mkdir -p ~/.laboratorio-de-paz/plantillas
 mkdir -p ~/.laboratorio-de-paz/regalos
+
+# Limpiar instalación vieja si existe (carpeta paz/ con dos puntos)
+if [ -d ~/.claude/commands/paz ]; then
+  rm -rf ~/.claude/commands/paz
+fi
 
 DESCARGADOS=0
 ESPERADOS=0
 
 echo -e "  ${GRIS}Descargando los módulos del curso...${RESET}"
-for archivo in start.md esencia.md skill.md agente.md encender.md; do
+for archivo in paz-start.md paz-esencia.md paz-skill.md paz-agente.md paz-encender.md; do
   ESPERADOS=$((ESPERADOS + 1))
-  if descargar "$REPO/commands/paz/$archivo" ~/.claude/commands/paz/$archivo; then
+  if descargar "$REPO/commands/$archivo" ~/.claude/commands/$archivo; then
     DESCARGADOS=$((DESCARGADOS + 1))
   fi
 done
@@ -105,7 +110,7 @@ if [ "$DESCARGADOS" -eq "$ESPERADOS" ]; then
   echo -e "  ${NEGRITA}Ahora:${RESET}"
   echo ""
   echo "  1. Abre Claude Code"
-  echo -e "  2. Escribe ${DORADO}${NEGRITA}/paz:start${RESET} y dale a enter"
+  echo -e "  2. Escribe ${DORADO}${NEGRITA}/paz-start${RESET} y dale a enter"
   echo ""
   echo "  Yo te llevo desde ahí."
   echo ""
@@ -118,8 +123,8 @@ elif [ "$DESCARGADOS" -gt 0 ]; then
   echo ""
   echo "  $DESCARGADOS de $ESPERADOS módulos descargados"
   echo ""
-  echo -e "  ${GRIS}(El curso sigue en construcción. Si esto es una prueba"
-  echo -e "   del autor, todo en orden. Si no, vuelve a intentarlo.)${RESET}"
+  echo -e "  ${GRIS}(Si esto es una prueba del autor, todo en orden."
+  echo -e "   Si no, vuelve a intentarlo.)${RESET}"
   echo ""
   echo "═══════════════════════════════════════════════════════════"
   echo ""
