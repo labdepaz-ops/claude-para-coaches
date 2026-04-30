@@ -4,7 +4,7 @@
 # Laboratorio de Paz · Alejandro Candela
 #
 # Una línea para empezar:
-# curl -sL https://raw.githubusercontent.com/laboratoriodepaz/claude-para-coaches/main/install.sh | bash
+# curl -sL https://raw.githubusercontent.com/labdepaz-ops/claude-para-coaches/main/install.sh | bash
 
 set -e
 
