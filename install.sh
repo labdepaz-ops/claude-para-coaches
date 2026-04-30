@@ -8,7 +8,7 @@
 
 set -e
 
-REPO="https://raw.githubusercontent.com/labdepaz-os/claude-para-coaches/main"
+REPO="https://raw.githubusercontent.com/labdepaz-ops/claude-para-coaches/main"
 
 VERDE='\033[0;32m'
 DORADO='\033[0;33m'
