@@ -1,0 +1,430 @@
+/* SO de Paz · Estilos
+   Laboratorio de Paz · Alejandro Candela */
+
+:root {
+  /* Paleta */
+  --negro: #1A1411;
+  --crema-fondo: #F5EFE3;
+  --crema-panel: #FAF6EC;
+  --gris-borde: #D8CFB8;
+  --gris-texto: #6B5F4A;
+  --acento: #8B1A1A;
+  --acento-suave: #E8D9C4;
+  --verde-ok: #4A6B3A;
+  --gris-vacio: #B5A88D;
+
+  /* Tipografía */
+  --serif: 'Georgia', 'Iowan Old Style', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
+
+  /* Espaciado */
+  --radio: 4px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: var(--sans);
+  background: var(--crema-fondo);
+  color: var(--negro);
+  font-size: 15px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Cabecera ───────────────────────────────────────────────────────────── */
+
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--gris-borde);
+  background: var(--crema-panel);
+}
+
+.cabecera-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+}
+
+.separador { color: var(--gris-texto); }
+
+.subtitulo {
+  font-size: 13px;
+  color: var(--gris-texto);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.cabecera-estado .estado {
+  font-size: 12px;
+  color: var(--gris-texto);
+  padding: 4px 10px;
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+}
+
+.cabecera-estado .estado-ok {
+  color: var(--verde-ok);
+  border-color: var(--verde-ok);
+}
+
+/* ─── Grid principal ────────────────────────────────────────────────────── */
+
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  gap: 18px;
+  padding: 18px 28px;
+  min-height: 0;
+}
+
+.panel {
+  background: var(--crema-panel);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.panel-cabecera {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.panel-cabecera h2 {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.panel-subtitulo {
+  font-size: 12px;
+  color: var(--gris-texto);
+  font-style: italic;
+}
+
+/* ─── Pilares ───────────────────────────────────────────────────────────── */
+
+.lista-pilares {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.pilar {
+  padding: 12px 14px;
+  border-radius: var(--radio);
+  border: 1px solid var(--gris-borde);
+  transition: border-color 0.15s;
+}
+
+.pilar-lleno {
+  background: #fff;
+  border-color: var(--verde-ok);
+}
+
+.pilar-vacio {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--gris-vacio);
+}
+
+.pilar-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.pilar-nombre {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.pilar-marca {
+  font-size: 14px;
+}
+
+.pilar-lleno .pilar-marca { color: var(--verde-ok); }
+.pilar-vacio .pilar-marca { color: var(--gris-vacio); }
+
+.pilar-descripcion {
+  font-size: 12px;
+  color: var(--gris-texto);
+}
+
+/* ─── Chat ──────────────────────────────────────────────────────────────── */
+
+.panel-chat {
+  min-height: 0;
+}
+
+.chat-historial {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mensaje {
+  max-width: 90%;
+  padding: 12px 14px;
+  border-radius: var(--radio);
+  font-size: 14px;
+}
+
+.mensaje p { margin-bottom: 6px; }
+.mensaje p:last-child { margin-bottom: 0; }
+.mensaje em {
+  font-family: var(--serif);
+  color: var(--gris-texto);
+  font-style: italic;
+}
+
+.mensaje-claude {
+  background: #fff;
+  border: 1px solid var(--gris-borde);
+  align-self: flex-start;
+}
+
+.mensaje-usuario {
+  background: var(--acento-suave);
+  border: 1px solid var(--gris-borde);
+  align-self: flex-end;
+}
+
+.mensaje-error {
+  background: #fff;
+  border: 1px solid var(--acento);
+  color: var(--acento);
+  align-self: flex-start;
+}
+
+.mensaje-pensando p {
+  color: var(--gris-texto);
+  font-style: italic;
+}
+
+.chat-form {
+  display: flex;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--gris-borde);
+}
+
+.chat-form textarea {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+  font-family: var(--sans);
+  font-size: 14px;
+  resize: none;
+  background: #fff;
+  color: var(--negro);
+}
+
+.chat-form textarea:focus {
+  outline: none;
+  border-color: var(--negro);
+}
+
+.chat-form button {
+  padding: 0 18px;
+  background: var(--negro);
+  color: var(--crema-panel);
+  border: none;
+  border-radius: var(--radio);
+  font-family: var(--sans);
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.chat-form button:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.chat-form button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─── Sistema (skills + agentes) ────────────────────────────────────────── */
+
+.seccion-sistema {
+  margin-bottom: 18px;
+}
+
+.seccion-sistema h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gris-texto);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.lista-comandos {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.comando {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+}
+
+.comando-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.comando-nombre {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.comando-codigo {
+  font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--gris-texto);
+}
+
+.comando-copiar {
+  padding: 4px 10px;
+  font-size: 11px;
+  background: transparent;
+  color: var(--gris-texto);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.comando-copiar:hover {
+  border-color: var(--negro);
+  color: var(--negro);
+}
+
+.seccion-engine {
+  padding-top: 14px;
+  border-top: 1px solid var(--gris-borde);
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--gris-texto);
+  margin-bottom: 8px;
+  font-family: var(--serif);
+}
+
+.boton-engine {
+  display: block;
+  text-align: center;
+  padding: 9px 12px;
+  background: transparent;
+  color: var(--negro);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+
+.boton-engine:hover {
+  border-color: var(--negro);
+  background: var(--acento-suave);
+}
+
+/* ─── Mensajes auxiliares ───────────────────────────────────────────────── */
+
+.cargando, .vacio, .aviso {
+  font-size: 12px;
+  color: var(--gris-texto);
+  font-style: italic;
+  padding: 12px 0;
+  text-align: center;
+}
+
+.aviso {
+  color: var(--acento);
+  font-style: normal;
+}
+
+.vacio {
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 14px 8px;
+}
+
+/* ─── Footer ────────────────────────────────────────────────────────────── */
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  font-size: 11px;
+  color: var(--gris-texto);
+  border-top: 1px solid var(--gris-borde);
+  background: var(--crema-panel);
+}
+
+.footer .separador { color: var(--gris-borde); }
+
+/* ─── Scrollbars sutiles ────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track { background: transparent; }
+
+::-webkit-scrollbar-thumb {
+  background: var(--gris-borde);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover { background: var(--gris-texto); }
+
+/* ─── Responsive básico ─────────────────────────────────────────────────── */
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+  .panel-chat { min-height: 400px; }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "laboratorio-de-paz-so",
+  "version": "1.0.0",
+  "description": "Sistema Operativo de Paz - dashboard local para coaches y terapeutas",
+  "main": "servidor.js",
+  "type": "module",
+  "scripts": {
+    "start": "node servidor.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0"
+  },
+  "author": "Laboratorio de Paz · Alejandro Candela",
+  "license": "MIT"
+}

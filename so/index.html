@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SO de Paz · Laboratorio de Paz</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="cabecera-marca">
+    <span class="logo">PAZ</span>
+    <span class="separador">·</span>
+    <span class="subtitulo">Sistema Operativo</span>
+  </div>
+  <div class="cabecera-estado">
+    <span id="estado-claude" class="estado">conectando…</span>
+  </div>
+</header>
+
+<main class="grid">
+
+  <!-- ZONA IZQUIERDA · MAPA DE 8 PILARES -->
+  <section class="panel panel-pilares">
+    <div class="panel-cabecera">
+      <h2>Tu negocio</h2>
+      <p class="panel-subtitulo">8 pilares · estado actual</p>
+    </div>
+    <div id="lista-pilares" class="lista-pilares">
+      <div class="cargando">cargando tu CLAUDE.md…</div>
+    </div>
+  </section>
+
+  <!-- ZONA CENTRAL · CHAT -->
+  <section class="panel panel-chat">
+    <div class="panel-cabecera">
+      <h2>Tu Claude personal</h2>
+      <p class="panel-subtitulo">conoce tu CLAUDE.md · enfocado en tu negocio</p>
+    </div>
+    <div id="chat-historial" class="chat-historial">
+      <div class="mensaje mensaje-claude">
+        <p>Hola. Soy tu Claude personal. He leído tu CLAUDE.md.</p>
+        <p><em>Lo que está bien nombrado se gobierna solo.</em></p>
+        <p>Pídeme cualquier cosa sobre tu negocio. Voy a responder con tu voz, tu nicho y tu contexto.</p>
+      </div>
+    </div>
+    <form id="chat-form" class="chat-form">
+      <textarea id="chat-input" placeholder="Escribe a tu Claude…" rows="2" required></textarea>
+      <button type="submit" id="chat-boton">Enviar</button>
+    </form>
+  </section>
+
+  <!-- ZONA DERECHA · SKILLS Y AGENTES -->
+  <section class="panel panel-sistema">
+    <div class="panel-cabecera">
+      <h2>Sistema</h2>
+      <p class="panel-subtitulo">tus skills y agentes</p>
+    </div>
+    <div class="seccion-sistema">
+      <h3>Skills</h3>
+      <div id="lista-skills" class="lista-comandos">
+        <div class="cargando">…</div>
+      </div>
+    </div>
+    <div class="seccion-sistema">
+      <h3>Agentes</h3>
+      <div id="lista-agentes" class="lista-comandos">
+        <div class="cargando">…</div>
+      </div>
+    </div>
+    <div class="seccion-sistema seccion-engine">
+      <p class="hint"><em>¿Quieres más agentes?</em></p>
+      <a href="https://claude-engine.netlify.app/" target="_blank" class="boton-engine">
+        Claude Engine ↗
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span>SO de Paz · v1.0</span>
+  <span class="separador">·</span>
+  <span>Laboratorio de Paz</span>
+  <span class="separador">·</span>
+  <span>todo en tu máquina</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
